@@ -1,5 +1,5 @@
 # Definición de la Base de Datos
-## Definición del esquema de Base de Datos
+## 1. Definición del esquema de Base de Datos
 ### 1.1 Identificar Entidades y Atributos:
 1. Usuarios:
 - ID de Usuario (clave primaria)
@@ -18,8 +18,14 @@
 - Apellido
 - Correo electrónico
 - Teléfono
-- Invitado Frecuente (booleano)
-- Fecha de registro
+- Fecha de Ingreso del Invitado
+- Fecha de Salida del Invitado
+- Tipo de Invitación (única, frecuente, evento)
+- Descripción de la Invitación (opcional)
+- Placa del Vehículo
+- Descripción del Vehículo (marca, modelo, color, etc.)
+
+Esta estructura cubre la funcionalidad de crear y compartir las invitaciones electrónicas mediante códigos QR. con la capacidad de registrar todos los detalles necesarios para cada invitación, incluyendo la información del vehículo. Luego, se podrá generar un código QR único para cada invitación, que contenga toda la información relevante, incluida la información del vehículo si es necesario. Los residentes podrán compartir este código QR con los invitados, y la caseta de vigilancia podrá escanear el código para acceder fácilmente a los detalles de la invitación, incluida la información del vehículo.
 
 3. Invitaciones:
 - ID de Invitación (clave primaria)
@@ -261,7 +267,7 @@ Podrán acceder a una sección en la aplicación donde encontrarán una lista de
 
 Con estas funcionalidades, se proporciona una manera eficiente para que los administradores puedan mantener informados a todos los residentes sobre eventos importantes, avisos de mantenimiento, cambios en las amenidades, y cualquier otra información relevante para la comunidad.
 
-23 .Servicios Programados:
+23. Servicios Programados:
 - ID de Servicio (clave primaria)
 - Tipo de Servicio (recolección de basura, mantenimiento de jardín, limpieza de áreas comunes, etc.)
 - Descripción del Servicio (opcional)
@@ -309,33 +315,69 @@ Los mensajes serán mostrados en tiempo real en la interfaz de la caseta de vigi
 
 Con estas funcionalidades, proporcionamos a los residentes una forma conveniente de comunicarse con la caseta de vigilancia directamente desde la aplicación, lo que permite una respuesta rápida y eficiente a cualquier consulta o solicitud de los residentes.
 
+26. Lista Negra de Vehículos:
+- ID del Vehículo (clave primaria)
+- Placa del Vehículo
+- Descripción del Vehículo (marca, modelo, color, etc.)
+- Estado del Vehículo (activo, inactivo, eliminado, etc.)
+
+Funcionalidades de la Aplicación para Residentes:
+Gestión de Lista Negra: Los residentes tendrán acceso a una sección en la aplicación donde podrán gestionar la lista negra de vehículos prohibidos.
+Podrán agregar, eliminar o modificar los vehículos en la lista negra, proporcionando la placa y la descripción del vehículo.
+Funcionalidades de la Aplicación para la Caseta de Vigilancia:
+Alertas de Vehículos Prohibidos: La caseta de vigilancia recibirá alertas cuando detecte un vehículo cuya placa coincida con algún vehículo en la lista negra.
+La alerta mostrará la información del vehículo prohibido para que el personal de vigilancia pueda tomar las medidas necesarias.
+
+Con estas funcionalidades, proporcionamos a los residentes una herramienta de seguridad adicional para controlar el acceso a la privada, permitiéndoles gestionar una lista de vehículos prohibidos y recibir alertas cuando se detecte un vehículo en la lista negra.
+
+27. Mantenimientos:
+- ID de Mantenimiento (clave primaria)
+- Tipo de Mantenimiento (preventivo, correctivo, etc.)
+- Descripción del Mantenimiento
+- Fecha y Hora Programadas del Mantenimiento
+- Estado del Mantenimiento (programado, en curso, completado, cancelado, etc.)
+- Fecha y Hora de Realización del Mantenimiento (si ya se realizó)
+- Descripción de las Acciones Realizadas (si ya se realizó)
+- ID de Residente asociado (opcional, si se comparte la información con los residentes)
+
+Funcionalidades de la Aplicación para Administradores:
+Programación de Mantenimientos: Los administradores tendrán acceso a una sección en la aplicación donde podrán programar los mantenimientos de áreas comunes o activos fijos de la privada.
+Podrán especificar el tipo de mantenimiento, la descripción, la fecha y hora programadas, y cualquier otra información relevante.
+Registro de Mantenimientos Realizados: Los administradores podrán registrar los mantenimientos una vez que hayan sido realizados, incluyendo detalles sobre las acciones realizadas y la fecha y hora de realización.
+Funcionalidades de la Aplicación para Residentes (Opcional):
+Acceso a la Información de Mantenimientos: Si se opta por compartir la información de mantenimientos con los residentes, estos podrán acceder a una sección en la aplicación donde podrán ver los detalles de los mantenimientos programados y realizados.
+
+Con estas funcionalidades, proporcionamos a los administradores una herramienta para programar, realizar y llevar un registro de los mantenimientos de la privada, y opcionalmente compartir esta información con los residentes para mantenerlos informados sobre las acciones realizadas en el mantenimiento y el estado de las áreas comunes o activos fijos.
+
 ## 2. Creación del Esquema de la Base de Datos en SQL Server:
-2.1 Crear Tablas:
+### 2.1 Crear Tablas:
 Utiliza SQL Server Management Studio (SSMS) u otra herramienta de administración de bases de datos para crear las tablas necesarias en la base de datos.
 Define las columnas de cada tabla junto con sus tipos de datos, restricciones, claves primarias y claves foráneas según el diseño del esquema de la base de datos.
-2.2 Establecer Relaciones:
+### 2.2 Establecer Relaciones:
 Utiliza sentencias SQL ALTER TABLE para establecer relaciones entre las tablas utilizando claves foráneas.
 Asegúrate de que las relaciones estén correctamente configuradas para mantener la integridad referencial en la base de datos.
-2.3 Crear Índices:
+### 2.3 Crear Índices:
 Crea índices en las columnas relevantes para mejorar el rendimiento de las consultas y búsquedas en la base de datos.
 Considera la creación de índices agrupados y no agrupados según las necesidades de tu aplicación.
-3. Definición de Procedimientos Almacenados, Disparadores y Restricciones:
-3.1 Procedimientos Almacenados:
+
+## 3. Definición de Procedimientos Almacenados, Disparadores y Restricciones:
+### 3.1 Procedimientos Almacenados:
 Define procedimientos almacenados en la base de datos para encapsular la lógica de negocio compleja y mejorar la modularidad y el rendimiento.
 Utiliza procedimientos almacenados para realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) en los datos de la base de datos de manera segura y eficiente.
-3.2 Disparadores (Triggers):
+### 3.2 Disparadores (Triggers):
 Define disparadores en la base de datos para ejecutar automáticamente acciones específicas en respuesta a eventos como la inserción, actualización o eliminación de datos.
 Utiliza disparadores para mantener la integridad de los datos y aplicar reglas de negocio específicas en la base de datos.
-3.3 Restricciones de Integridad:
+### 3.3 Restricciones de Integridad:
 Define restricciones de integridad en la base de datos para garantizar la consistencia y la integridad de los datos.
 Utiliza restricciones como NOT NULL, UNIQUE, CHECK y FOREIGN KEY para aplicar reglas de negocio y asegurar la validez de los datos almacenados.
-4. Optimización y Mantenimiento de la Base de Datos:
-4.1 Optimización de Consultas:
+
+## 4. Optimización y Mantenimiento de la Base de Datos:
+### 4.1 Optimización de Consultas:
 Optimiza las consultas SQL utilizando técnicas como la selección de índices adecuados, la reescritura de consultas complejas y la eliminación de cuellos de botella de rendimiento.
 Utiliza herramientas de análisis de rendimiento como el Plan de Ejecución de Consultas (Query Execution Plan) para identificar y resolver problemas de rendimiento en la base de datos.
-4.2 Respaldo y Recuperación:
+### 4.2 Respaldo y Recuperación:
 Implementa un plan de respaldo y recuperación para garantizar la seguridad y la disponibilidad de los datos en caso de fallo del sistema o pérdida de datos.
 Realiza copias de seguridad regulares de la base de datos y prueba los procedimientos de recuperación para asegurarte de que puedas restaurar los datos en caso de emergencia.
-4.3 Monitoreo y Mantenimiento Continuo:
+### 4.3 Monitoreo y Mantenimiento Continuo:
 Monitorea el rendimiento y la salud de la base de datos utilizando herramientas de monitoreo y alerta.
 Realiza tareas de mantenimiento regularmente, como la optimización de índices, la eliminación de datos obsoletos y la gestión del crecimiento de la base de datos, para garantizar un funcionamiento óptimo de la base de datos a largo plazo.
