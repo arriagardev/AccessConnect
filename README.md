@@ -26,8 +26,10 @@ Necesito crear una aplicación móvil multiplataforma de colaboración sencilla 
 ## MVP
 Se sugiere contar con las siguientes funcionalidades para un mínimo producto viable, englobando las características básicas de una aplicación de control de acceso para fraccionamientos:
 1. Invita amigos: Crea invitaciones electrónicas y compártelas mediante código QR. **Sin necesariamente especificar tipo de visita**
+3. ¡Ya pagué!: Toma una foto a tu comprobante de pago con la aplicación y envíala a la mesa directiva para validación. **En primera instancia solo para subir comprobantes y aprobarlos**
 5. Incidentes: Informa a la mesa directiva mejoras que apoyen a la comunidad. **Reportes globales con notificación a administrador**
 9. Comunicados: Genera comunicados para que todos los residentes estén informados de lo que importa. **Notificaciones para todos los usuarios residentes**
+10. Reglamentos: Sube el reglamento de la privada en formato pdf a la aplicación y podrás indicar que los residentes firmen de enterados. **Carga de archivos para consulta de todos**
 13. Botón de Pánico **Notificaciones para todos los usuarios incluye administrador y vigilantes**
 15. Versión Web **Mismas funcionalidades pero adaptadas de manera responsiva para web en escritorio**
 
